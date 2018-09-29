@@ -89,11 +89,6 @@ def unique_dimkeys(obj, default_dim='Frame'):
             if not matches:
                 unique_keys.append(padded_key)
 
-    # Add cartesian product of DynamicMap values to keys
-    values = [d.values for d in all_dims]
-    if obj.traverse(lambda x: x, ['DynamicMap']) and values and all(values):
-        unique_keys += list(zip(*cartesian_product(values)))
-
     with item_check(False):
         sorted_keys = NdMapping({key: None for key in unique_keys},
                                 kdims=all_dims).data.keys()
